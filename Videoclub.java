@@ -6,6 +6,12 @@
 	2. Consulta de una película a partir de su código
 	3. Listar todas las películas
 	0. Salir del programa
+
+* Jesús Cañizares mejora:
+* Añadir la posibilidad de borrar películas almacenadas, introduciendo su código.
+* Crear un método modular para borrarPeliculas()
+* Añadir la opción en menú para borrarPeliculas(), con el número 4.
+* Ampliar la posibilidad de ejecución del programa en el switch de opciones
 */
 
 import java.io.*;
@@ -183,7 +189,105 @@ class Videoclub
 			}
 		}
 	}
+//_____________________________________________Opción Borrar Películas Jesús Cañizares___________________
 
+	//__________________________Borra Película________________________________
+	
+	public static void borraPelicula() 
+	{
+		System.out.println("");
+		System.out.println("Introduzca código de película a borrar");
+		BufferedReader br2 = new BufferedReader (new InputStreamReader (System.in));
+		int codigoBorrar= 0;
+		File f2 =new File ("Videoclub2.dat");
+		try
+		{
+			codigoBorrar = Integer.parseInt(br2.readLine());
+		}
+		catch (IOException e1) 
+		{
+			e1.printStackTrace();
+		}		
+		
+		FileInputStream fis = null;
+		DataInputStream dis = null;
+		
+		try 
+		{	
+			if (f.exists())
+			{
+				fis = new FileInputStream (f);
+				dis = new DataInputStream (fis);
+				
+					int cod;
+					String titulo;
+					String director;
+				
+					boolean append= true;
+					
+					while (true)
+					{
+						cod = dis.readInt();
+						titulo = dis.readUTF();
+						director = dis.readUTF();
+
+						if (cod != codigoBorrar)
+							{
+								FileOutputStream fos = new FileOutputStream (f2,append);
+								DataOutputStream dos = new DataOutputStream (fos);
+
+								try
+								{
+									dos.writeInt(cod);
+									dos.writeUTF(titulo);
+									dos.writeUTF(director);
+										
+								} 
+								catch(IOException e)
+								{
+									e.printStackTrace();
+								}
+								finally
+								{
+									if (dos != null)
+										{
+											dos.close();
+											fos.close();
+										}
+								}
+							}
+					}
+			}
+		} 
+		catch (EOFException eof)
+		{
+			System.out.println("----------------------------------------");
+		}			
+		catch (FileNotFoundException fnf)
+		{
+			System.out.println("Fichero no encontrado");
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+				try
+				{
+					if (dis != null)
+					{
+						dis.close();
+						fis.close();				
+					}
+				}
+				catch(IOException e)
+				{
+					e.printStackTrace();
+				}
+		}
+		f2.renameTo(f);
+	}
 
 	public static void main (String [] args) throws IOException
 	{
@@ -198,12 +302,13 @@ class Videoclub
 			System.out.println("1. Alta de película");
 			System.out.println("2. Consulta de una película a partir de su código");
 			System.out.println("3. Listar todas las películas");
+			System.out.println("4. Borrar una película a partir de su código");
 			System.out.println("0. Salir del programa");
 			menu = Integer.parseInt(br.readLine());
 
-				while ((menu <0) || (menu >3)) // para valores númericos fuera de rango 0 a 3
+				while ((menu <0) || (menu >4)) // para valores númericos fuera de rango 0 a 4
 				{
-					System.out.println("Por favor, escoja un valor entre 0 y 3");
+					System.out.println("Por favor, escoja un valor entre 0 y 4");
 					menu = Integer.parseInt(br.readLine());
 				}
 
@@ -212,9 +317,12 @@ class Videoclub
 			case 1: System.out.println ("  ALTA PELICULA  ");Videoclub.altaPelicula();break;
 			case 2: System.out.println ("  CONSULTA PELICULA POR CODIGO   ");Videoclub.consultaPelicula();break;
 			case 3: System.out.println ("  LISTADO DE PELICULAS, CODIGO, TITULO, DIRECTOR   ");Videoclub.listaPelicula();break;
+			case 4: System.out.println ("      BORRANDO PELICULA   ");Videoclub.borraPelicula();break;
 			case 0: System.out.println (" Saliendo del programa ......... hasta pronto.");break;
 
 			}
 		}
 	}
+
+	
 }
