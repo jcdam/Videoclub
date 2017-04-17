@@ -189,44 +189,7 @@ class Videoclub
 			}
 		}
 	}
-
-
-	public static void main (String [] args) throws IOException
-	{
-		BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
-		int menu = 1;
-		
-		while (menu !=0)
-		{
-			System.out.println("--------------------------VIDEOCLUB----------------------------");
-			System.out.println("MENU: Escoge una accion");
-
-			System.out.println("1. Alta de película");
-			System.out.println("2. Consulta de una película a partir de su código");
-			System.out.println("3. Listar todas las películas");
-			System.out.println("4. Borrar una película a partir de su código");
-			System.out.println("0. Salir del programa");
-			menu = Integer.parseInt(br.readLine());
-
-				while ((menu <0) || (menu >4)) // para valores númericos fuera de rango 0 a 4
-				{
-					System.out.println("Por favor, escoja un valor entre 0 y 4");
-					menu = Integer.parseInt(br.readLine());
-				}
-
-			switch (menu)
-			{
-			case 1: System.out.println ("  ALTA PELICULA  ");Videoclub.altaPelicula();break;
-			case 2: System.out.println ("  CONSULTA PELICULA POR CODIGO   ");Videoclub.consultaPelicula();break;
-			case 3: System.out.println ("  LISTADO DE PELICULAS, CODIGO, TITULO, DIRECTOR   ");Videoclub.listaPelicula();break;
-			case 4: System.out.println ("      BORRANDO PELICULA   ");Videoclub.borraPelicula();break;
-			case 0: System.out.println (" Saliendo del programa ......... hasta pronto.");break;
-
-			}
-		}
-	}
-
-	//_____________________________________________Opción Borrar Películas Jesús Cañizares___________________
+//_____________________________________________Opción Borrar Películas Jesús Cañizares___________________
 
 	//__________________________Borra Película________________________________
 	
@@ -325,4 +288,41 @@ class Videoclub
 		}
 		f2.renameTo(f);
 	}
+
+	public static void main (String [] args) throws IOException
+	{
+		BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+		int menu = 1;
+		
+		while (menu !=0)
+		{
+			System.out.println("--------------------------VIDEOCLUB----------------------------");
+			System.out.println("MENU: Escoge una accion");
+
+			System.out.println("1. Alta de película");
+			System.out.println("2. Consulta de una película a partir de su código");
+			System.out.println("3. Listar todas las películas");
+			System.out.println("4. Borrar una película a partir de su código");
+			System.out.println("0. Salir del programa");
+			menu = Integer.parseInt(br.readLine());
+
+				while ((menu <0) || (menu >4)) // para valores númericos fuera de rango 0 a 4
+				{
+					System.out.println("Por favor, escoja un valor entre 0 y 4");
+					menu = Integer.parseInt(br.readLine());
+				}
+
+			switch (menu)
+			{
+			case 1: System.out.println ("  ALTA PELICULA  ");Videoclub.altaPelicula();break;
+			case 2: System.out.println ("  CONSULTA PELICULA POR CODIGO   ");Videoclub.consultaPelicula();break;
+			case 3: System.out.println ("  LISTADO DE PELICULAS, CODIGO, TITULO, DIRECTOR   ");Videoclub.listaPelicula();break;
+			case 4: System.out.println ("      BORRANDO PELICULA   ");Videoclub.borraPelicula();break;
+			case 0: System.out.println (" Saliendo del programa ......... hasta pronto.");break;
+
+			}
+		}
+	}
+
+	
 }
